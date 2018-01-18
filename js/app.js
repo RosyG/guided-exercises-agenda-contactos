@@ -8,6 +8,9 @@
     $(".modal").modal();  // se mandan llamar a la clase modal, que despliega las cajas contenedoras
     $nameInput.keyup(validateContact); // validar que el usuario ingrese datos. Que este tecleando un nombre
     $phoneInput.keyup(validateContact); // validar que el usuario ingrese datos. Que este tecleando números
+
+
+    $("searcher").keyup(filterContacts);
   };
 
   var paintContactsInHTML = function(contact) {
@@ -53,9 +56,21 @@
 
 
 
-  var filterContacts = function() {
-    //Esta funcion debe de filtrar la data segun el valor que el usuario ingrese en el input de busqueda
-  };
+    function filterContacts() {
+      /*Los filtros devuelven arreglos*/
+      //Esta funcion debe de filtrar la data segun el valor que el usuario ingrese en el input de busqueda
+      var $searchContact = $("#seacher"). val().toLowerCase();
+      /*Se necesita comparar con la data que ya se tiene*/
+      if ($("#searcher").val().trim().length > 0) {
+        var filteredContacts = contacts.filter(function(contact){
+          return contact.name.toLowerCase().indexOf(searchContact) >= 0;
+        });
+        $("#publish-contacts").empty();
+        filteredContacts.forEach(function(contact){
+          paintContactsInHTML(contact);
+        })
+      }
+    };
 
 
   var removeContact = function () {
